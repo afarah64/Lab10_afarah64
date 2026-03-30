@@ -60,7 +60,7 @@ class WordAnalyzer:
                         #skip the word if it contains non-alphabetic characters or non-ASCII characters
                         if not word.isalpha() or not word.isascii():
                             continue
-                        #
+                        # skip the word if it consists solely of Roman numeral characters
                         if all(char in roman_chars for char in word):
                             continue
                         #skip the word if it is in the stop words set
@@ -117,7 +117,7 @@ def main():
 
                 input("\nPress Enter to return to the menu...")
         elif choice == "5":
-            print("Exiting...")
+            print("Goodbye!")
             break
         else:
             print("Invalid choice. Please try again.")
