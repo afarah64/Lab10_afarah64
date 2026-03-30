@@ -40,7 +40,7 @@ class WordAnalyzer:
         
         # Define a cleaner to remove punctuation and special characters from the text
         cleaner = str.maketrans('', '', string.punctuation + "“”‘’—•†_")
-        
+        roman_chars = set("ivxlcdm")
         try:
             with self.__file_path.open('r', encoding='utf-8') as file:
                 for raw_line in file:
@@ -54,6 +54,15 @@ class WordAnalyzer:
                     for word in words:
                         #strip any leading or trailing whitespace from the word
                         word = word.strip()
+                        #skip empty words
+                        if not word:
+                            continue
+                        #skip the word if it contains non-alphabetic characters or non-ASCII characters
+                        if not word.isalpha() or not word.isascii():
+                            continue
+                        #
+                        if all(char in roman_chars for char in word):
+                            continue
                         #skip the word if it is in the stop words set
                         if word in self.__stop_words:
                             continue
